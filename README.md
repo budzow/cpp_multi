@@ -47,10 +47,26 @@ sudo yum install gcc-c++ cmake3       # RHEL 7
 
 ## Build
 
+### Normal (release) build
+
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 ```
+
+### Debug build with AddressSanitizer (for the dangling-pointer exercise)
+
+The project uses `-static-libasan` so ASan works even when the `libasan`
+shared library is **not** installed on the system.  Just pass `-DENABLE_ASAN=ON`:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON
+cmake --build build -j$(nproc)
+```
+
+If you do have `libasan` installed (`sudo dnf install libasan`) and prefer
+dynamic linking, edit the `ENABLE_ASAN` block in `CMakeLists.txt` and remove
+`-static-libasan` from both `add_compile_options` and `add_link_options`.
 
 ## Run
 
