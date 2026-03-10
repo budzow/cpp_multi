@@ -1,3 +1,4 @@
 build/
 .scannerwork/
-bw-output/
+*.log
+build-wrapper-dump.json
