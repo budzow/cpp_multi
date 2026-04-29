@@ -21,5 +21,6 @@ if [[ "$ASAN" == "1" ]]; then
     CMAKE_ARGS+=(-DENABLE_ASAN=ON)
 fi
 
+cmake --build "$BUILD_DIR" --target clean
 cmake "${CMAKE_ARGS[@]}"
 build-wrapper-linux-x86-64 --out-dir bw-output cmake --build "$BUILD_DIR" -j"$(nproc)"
